@@ -2,13 +2,10 @@ package net.rickcodetalk.springvertxexample.verticles;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.eventbus.Message;
-import io.vertx.core.json.Json;
 import io.vertx.core.json.JsonObject;
 import net.rickcodetalk.springvertxexample.db.MysqlClient;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 @Configuration
@@ -29,7 +26,7 @@ public class DbVerticle extends AbstractVerticle {
                 .handler(this::handleQuery);
     }
 
-    void handleQuery(Message message) {
+    private void handleQuery(Message message) {
 
         JsonObject query = (JsonObject) message.body();
 
@@ -37,10 +34,5 @@ public class DbVerticle extends AbstractVerticle {
                 .subscribe(ar -> {
                     message.reply(ar.toJson().getJsonArray("rows"));
                 });
-    }
-
-    @Bean
-    public MysqlClient getMysqlClient() {
-        return mysqlClient;
     }
 }

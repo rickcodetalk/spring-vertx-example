@@ -2,6 +2,6 @@ mysql:
   host: localhost
   port: 3306
   maxPoolSize: 100
-  username: root
-  password: 1234
+  username: <username>
+  password: <password>
   database: test
